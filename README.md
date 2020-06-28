@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# xy-admin
-=======
+
 # xy-admin
 
 ## Project setup
