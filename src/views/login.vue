@@ -1,17 +1,12 @@
 <template>
-    <div>
+    <div class="container">
         <div class="login-box">
-            <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px" class="login-form">
-            <el-form-item label="账号" prop="name">
-                <el-input v-model="loginForm.name"></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="delivery">
-                <el-input v-model="loginForm.passworld" type='passworld'></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')" style="width:100%">登  录</el-button>
-            </el-form-item>
-            </el-form>
+            <h1>LOGIN</h1>
+            <div style="display: flex;flex-direction:column">
+                <input placeholder="账号" class="text" v-model="loginForm.name"/>
+                <input placeholder="密码" type="password" v-model="loginForm.password" class="text"/>
+                <input type="button" value="SUBMIT" class="btn" @click="submitForm"/>
+            </div>
         </div>
     </div>
 </template>
@@ -22,25 +17,51 @@ export default {
         return {
             loginForm: {
                 name:'',
-                passworld:''
+                password:''
             },
-            rules:[]        
+            rules:[]
         }
     },
     methods:{
         submitForm() {
             console.log('提交')
             this.$router.push('/home')
-        },
-        resetForm() {
-            console.log('重置')
         }
     }
 }
 </script>
 
 <style scoped>
-.login-box{
-    width: 500px;
-}
+    .container{
+        background-color: #2c3e50;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login-box{
+        width: 400px;
+        height: 500px;
+        color: #fff;
+        border: 1px solid #fff;
+        border-radius: 20px;
+        padding: 20px;
+    }
+    .text{
+        background-color: transparent;
+        outline:none;
+        border: none;
+        border-bottom: 1px solid gray;
+        color: white;
+        height: 30px;
+        margin: 15px 0;
+    }
+    .text::placeholder{
+        color: white;
+    }
+    .btn{
+        margin-top: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
 </style>
