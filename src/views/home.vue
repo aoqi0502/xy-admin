@@ -2,18 +2,30 @@
     <div class="xy-container">
         <el-row :gutter="10">
             <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple">
-                <!--         词云       -->
-                <div id="wordCloudEcharts" style="width:100%;height: 260px"></div>
-            </div></el-col>
-            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple-light">
-                <!--        漏斗        -->
-                <div id="funnelEcharts" style="width:100%;height: 260px"></div>
+                <el-card class="box-card" shadow="hover">
+                    <div slot="header" class="clearfix">
+                        <span>词云图</span>
+                    </div>
+                    <div id="wordCloudEcharts" style="width:100%;height: 260px"></div>
+                </el-card>
             </div></el-col>
             <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple">
-                <!--        饼图        -->
-                <div id="pieEcharts" style="width:100%;height: 260px"></div>
+                <el-card class="box-card" shadow="hover">
+                    <div slot="header" class="clearfix">
+                        <span>漏斗图</span>
+                    </div>
+                    <div id="funnelEcharts" style="width:100%;height: 260px"></div>
+                </el-card>
             </div></el-col>
-            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple-light"></div></el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple">
+                <el-card class="box-card" shadow="hover">
+                    <div slot="header" class="clearfix">
+                        <span>饼图</span>
+                    </div>
+                    <div id="pieEcharts" style="width:100%;height: 260px"></div>
+                </el-card>
+            </div></el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple"></div></el-col>
         </el-row>
     </div>
 </template>
@@ -24,14 +36,6 @@ export default {
         return {
             myChart: '',
             wordCloudOption: {
-                title: {
-                    text: '词云图',//标题
-                    x: 'center',
-                    textStyle: {
-                        fontSize: 23
-                    }
-
-                },
                 backgroundColor: '#fff',
                 tooltip: {
                     show: true
@@ -138,14 +142,6 @@ export default {
                 }]
             },
             funnelOption: {
-                title: {
-                    text: '漏斗图',//标题
-                    x: 'center',
-                    textStyle: {
-                        fontSize: 23
-                    }
-
-                },
                 backgroundColor: "#ffffff",
                 color: ["#37A2DA", "#32C5E9", "#67E0E3", "#9FE6B8", "#FFDB5C",],
                 tooltip: {
@@ -222,14 +218,6 @@ export default {
                 //     globalCoord: false // 缺省为 false
                 // },
                 backgroundColor: '#fff',
-                title: {
-                    text: '品种',
-                    x: 'center',
-                    y: 'center',
-                    // textStyle: {
-                    //     color: '#fff'
-                    // }
-                },
                 tooltip: {
                     trigger: 'item',
                     borderColor: 'rgba(255,255,255,.3)',
@@ -321,26 +309,44 @@ export default {
         }
     },
     mounted() {
-        this.init()
+        this.init();
+        window.addEventListener('resize', () => {
+            this.wordCloudEcharts.resize();
+            this.funnelEcharts.resize();
+            this.pieEcharts.resize();
+        })
+
     },
     methods:{
         init() {
-            let wordCloudEcharts = this.$echarts.init(document.getElementById('wordCloudEcharts'));
-            wordCloudEcharts.setOption(this.wordCloudOption);
+            this.wordCloudEcharts = this.$echarts.init(document.getElementById('wordCloudEcharts'));
+            this.wordCloudEcharts.setOption(this.wordCloudOption);
 
-            let funnelEcharts = this.$echarts.init(document.getElementById('funnelEcharts'));
-            funnelEcharts.setOption(this.funnelOption);
+            this.funnelEcharts = this.$echarts.init(document.getElementById('funnelEcharts'));
+            this.funnelEcharts.setOption(this.funnelOption);
 
-            let pieEcharts = this.$echarts.init(document.getElementById('pieEcharts'));
-            pieEcharts.setOption(this.pieOption);
+            this.pieEcharts = this.$echarts.init(document.getElementById('pieEcharts'));
+            this.pieEcharts.setOption(this.pieOption);
         }
     }
 }
 </script>
 
-<style scoped>
+<style>
     .xy-container{
         background-color: white;
-        height: 100%
+        height: 100%;
+        padding: 10px;
+        overflow: auto;
+        box-sizing: border-box;
+    }
+    .clearfix{
+        text-align: left;
+    }
+    .el-card__header{
+        padding: 0 20px !important;
+    }
+    .grid-content{
+        margin-bottom: 20px;
     }
 </style>

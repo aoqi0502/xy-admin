@@ -1,73 +1,61 @@
 <template>
        <el-container style='height:100%'>
-           <transition name="fade">
-                <el-aside :width="asideWidth">
+                <el-aside :width="asideWidth" style="overflow-y: auto;overflow-x: hidden">
                 <div class="logo-box">
                     <img src="../assets/logo.png" class="logo-pic"/>
                     <h1>XY-Admin</h1>
                 </div>
-                <el-menu :default-openeds="['1', '3']"
-                         :collapse="isCollapse"
+                <el-menu :collapse="isCollapse"
+                         router
+                         :default-active="$route.name"
                          text-color="#979797"
                          active-text-color="#fff"
                          background-color="#001529">
-                    <el-menu-item index="0-1">
+                    <el-menu-item index="home" route="/home">
                         <i class="iconfont icon-shouye xy-menu-icon"></i>
                         <span slot="title">首页</span>
                     </el-menu-item>
-                    <el-submenu index="1">
-                    <template slot="title"><i class="el-icon-message" style="margin-right: 20px"></i>导航一</template>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                    <el-menu-item index="1-3">选项3</el-menu-item>
-                    <el-submenu index="1-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
-                <el-submenu index="2">
-                    <template slot="title"><i class="el-icon-menu" style="margin-right: 20px"></i>导航二</template>
-                    <el-menu-item-group>
-                    <el-menu-item index="2-1">选项1</el-menu-item>
-                    <el-menu-item index="2-2">选项2</el-menu-item>
-                    </el-menu-item-group>
-                    <el-menu-item index="2-3">选项3</el-menu-item>
-                    <el-submenu index="2-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
-                <el-submenu index="3">
-                    <template slot="title"><i class="el-icon-setting" style="margin-right: 20px"></i>导航三</template>
-                    <el-menu-item-group>
-                    <el-menu-item index="3-1">选项1</el-menu-item>
-                    <el-menu-item index="3-2">选项2</el-menu-item>
-                    </el-menu-item-group>
-                    <el-menu-item index="3-3">选项3</el-menu-item>
-                    <el-submenu index="3-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-                    </el-submenu>
-                </el-submenu>
+                    <el-menu-item index="table" route="/table">
+                        <i class="iconfont icon-table xy-menu-icon"></i>
+                        <span slot="title">表格</span>
+                    </el-menu-item>
+                    <el-menu-item index="editor" route="/editor">
+                        <i class="iconfont icon-bianji xy-menu-icon"></i>
+                        <span slot="title">富文本编辑器</span>
+                    </el-menu-item>
+                    <el-menu-item index="axios" route="/axios">
+                        <i class="iconfont icon-shuaxin xy-menu-icon"></i>
+                        <span slot="title">axios</span>
+                    </el-menu-item>
                 </el-menu>
             </el-aside>
-           </transition>
             <el-container>
                 <el-header style="border-bottom: 1px solid #dcdfe6">
                     <el-row :gutter="10">
-                        <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
                             <div class="grid-content bg-purple">
                                 <i class="iconfont icon-guanbi" @click="handleToggle"></i>
                             </div>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+                        <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22">
                             <div class="grid-content bg-purple-light">
-                                <i class="iconfont icon-shuaxin1" style="font-size: 17px;line-height: 60px;"></i>
-                                <i class="iconfont icon-quanping" style="font-size: 20px;line-height: 60px;margin: 0 20px;"></i>
+                                <el-color-picker v-model="themeColor" style="margin-right: 20px" @change="handleChangeColor"></el-color-picker>
+
+                                <i class="iconfont" :class="fullscreen ? 'icon-quxiaoquanping' : 'icon-quanping'" style="font-size: 20px;line-height: 60px;" @click="handleFullScreen"></i>
+                                <el-dropdown @command="handleCommand" style="margin: 0 20px;">
+                                  <span class="el-dropdown-link">
+                                    <i class="iconfont icon-yuyanqiehuan" style="font-size: 17px;line-height: 60px;"></i>
+                                    <i class="el-icon-caret-bottom el-icon--right"></i>
+                                  </span>
+                                    <el-dropdown-menu slot="dropdown">
+                                        <el-dropdown-item command="zh">中文</el-dropdown-item>
+                                        <el-dropdown-item command="en">英文</el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </el-dropdown>
                                 <el-dropdown style="vertical-align: middle">
                                   <div class="el-dropdown-link" style="cursor: pointer;height: 60px;display: flex;align-items: center">
                                     <img class="pic" src="http://p0.ifengimg.com/pmop/2017/0718/4B65DFB30700B94B6FCFA6EC792F7C3D7F453CEE_size1653_w365_h365.gif" alt="">
-                                     <i class="el-icon-arrow-down el-icon--right"></i>
+                                     <i class="el-icon-caret-bottom el-icon--right"></i>
                                   </div>
                                     <el-dropdown-menu slot="dropdown">
                                         <el-dropdown-item>个人中心</el-dropdown-item>
@@ -78,20 +66,32 @@
                         </el-col>
                     </el-row>
                 </el-header>
-                <el-main style="backgroundColor:#F5F5F5;padding:20px">
+                <el-main style="backgroundColor:#F5F5F5">
                     <router-view />
                 </el-main>
-                <el-footer style="lineHeight:60px;text-align: center">xy-admin</el-footer>
+                <el-footer style="lineHeight:60px;text-align: center;color: #9a9a9a">xy-admin</el-footer>
             </el-container>
         </el-container>
 </template>
 
 <script>
+    import {isFull} from '@/util'
 export default {
     data() {
         return {
-            isCollapse:false
+            isCollapse: false,
+            fullscreen: false,
+            themeColor: '#409EFF'
         }
+    },
+    mounted() {
+
+        window.addEventListener('resize', () => {
+            if(!isFull()) {
+                this.fullscreen = !this.fullscreen;
+            }
+        })
+
     },
     computed:{
         asideWidth() {
@@ -101,6 +101,39 @@ export default {
     methods:{
         handleToggle() {
             this.isCollapse = !this.isCollapse
+        },
+        handleCommand(value) {
+            window.sessionStorage.setItem('LANGUAGE', value);
+            location.reload()
+        },
+        handleChangeColor(color) {
+          console.log(color)
+        },
+        handleFullScreen() {
+            let element = document.documentElement;
+            if (this.fullscreen) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            } else {
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.webkitRequestFullScreen) {
+                    element.webkitRequestFullScreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.msRequestFullscreen) {
+                    // IE11
+                    element.msRequestFullscreen();
+                }
+            }
+            this.fullscreen = !this.fullscreen;
         }
     }
 }
@@ -144,7 +177,9 @@ export default {
  border-right: none !important;
 }
 .bg-purple-light{
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     height: 60px;
 }
 .pic{

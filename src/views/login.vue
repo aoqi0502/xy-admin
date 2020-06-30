@@ -3,9 +3,9 @@
         <div class="login-box">
             <h1>LOGIN</h1>
             <div style="display: flex;flex-direction:column">
-                <input placeholder="账号" class="text" v-model="loginForm.name"/>
-                <input placeholder="密码" type="password" v-model="loginForm.password" class="text"/>
-                <input type="button" value="SUBMIT" class="btn" @click="submitForm"/>
+                <input :placeholder="$t('login.name')" class="text" v-model="loginForm.name"/>
+                <input :placeholder="$t('login.password')" type="password" v-model="loginForm.password" class="text"/>
+                <input type="button" :value="$t('login.submit')" class="btn" @click="submitForm"/>
             </div>
         </div>
     </div>
