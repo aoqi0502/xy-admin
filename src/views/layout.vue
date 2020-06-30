@@ -1,9 +1,9 @@
 <template>
        <el-container style='height:100%'>
-                <el-aside :width="asideWidth" style="overflow-y: auto;overflow-x: hidden">
+                <el-aside :width="asideWidth" class="xy-aside">
                 <div class="logo-box">
                     <img src="../assets/logo.png" class="logo-pic"/>
-                    <h1>XY-Admin</h1>
+                    <h1 v-show="!isCollapse">XY-Admin</h1>
                 </div>
                 <el-menu :collapse="isCollapse"
                          router
@@ -142,6 +142,11 @@ export default {
 <style lang="scss">
 .el-aside{
     background-color: #001529
+}
+.xy-aside{
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    transition: all 0.6s ease;
 }
 .logo-box{
     color: white;
