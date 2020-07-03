@@ -11,19 +11,34 @@
                     width="55">
             </el-table-column>
             <el-table-column
-                    label="日期"
-                    width="120">
+                    width="160"
+                    label="日期">
                 <template slot-scope="scope">{{ scope.row.date }}</template>
             </el-table-column>
             <el-table-column
                     prop="name"
-                    label="姓名"
-                    width="120">
+                    width="160"
+                    label="姓名">
             </el-table-column>
             <el-table-column
                     prop="address"
                     label="地址"
+                    width="360"
                     show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    show-overflow-tooltip>
+                <template slot-scope="scope">
+                    <el-button type="text">
+                        <i class="iconfont icon-xianshi"></i>
+                        <span>预览</span>
+                    </el-button>
+                    <el-button type="text" @click="handleDelete(scope.row)">
+                        <i class="iconfont icon-lajitong"></i>
+                        <span>删除</span>
+                    </el-button>
+                </template>
             </el-table-column>
         </el-table>
         <div style="margin-top: 20px;text-align: right">
@@ -77,6 +92,18 @@
         methods:{
             handleSelectionChange() {
 
+            },
+            handleDelete(item) {
+                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                })
             }
         }
     }

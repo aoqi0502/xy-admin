@@ -3,31 +3,11 @@
                 <el-aside :width="asideWidth" class="xy-aside">
                 <div class="logo-box">
                     <img src="../assets/logo.png" class="logo-pic"/>
-                    <h1 v-show="!isCollapse">XY-Admin</h1>
+                    <transition name="el-zoom-in-center">
+                      <h1 v-show="!isCollapse">XY-Admin</h1>
+                    </transition>
                 </div>
-                <el-menu :collapse="isCollapse"
-                         router
-                         :default-active="$route.name"
-                         text-color="#979797"
-                         active-text-color="#fff"
-                         background-color="#001529">
-                    <el-menu-item index="home" route="/home">
-                        <i class="iconfont icon-shouye xy-menu-icon"></i>
-                        <span slot="title">首页</span>
-                    </el-menu-item>
-                    <el-menu-item index="table" route="/table">
-                        <i class="iconfont icon-table xy-menu-icon"></i>
-                        <span slot="title">表格</span>
-                    </el-menu-item>
-                    <el-menu-item index="editor" route="/editor">
-                        <i class="iconfont icon-bianji xy-menu-icon"></i>
-                        <span slot="title">富文本编辑器</span>
-                    </el-menu-item>
-                    <el-menu-item index="axios" route="/axios">
-                        <i class="iconfont icon-shuaxin xy-menu-icon"></i>
-                        <span slot="title">axios</span>
-                    </el-menu-item>
-                </el-menu>
+                    <MenuSun :menuList="menuList" :hierarchy="0" :isCollapse="isCollapse"/>
             </el-aside>
             <el-container>
                 <el-header style="border-bottom: 1px solid #dcdfe6">
@@ -39,9 +19,8 @@
                         </el-col>
                         <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22">
                             <div class="grid-content bg-purple-light">
-                                <el-color-picker v-model="themeColor" style="margin-right: 20px" @change="handleChangeColor"></el-color-picker>
-
                                 <i class="iconfont" :class="fullscreen ? 'icon-quxiaoquanping' : 'icon-quanping'" style="font-size: 20px;line-height: 60px;" @click="handleFullScreen"></i>
+                                <i class="iconfont icon-tongzhihuotixing" style="margin-left: 20px;font-size: 20px" @click="handleMessage()"></i>
                                 <el-dropdown @command="handleCommand" style="margin: 0 20px;">
                                   <span class="el-dropdown-link">
                                     <i class="iconfont icon-yuyanqiehuan" style="font-size: 17px;line-height: 60px;"></i>
@@ -75,17 +54,20 @@
 </template>
 
 <script>
-    import {isFull} from '@/util'
+    import MenuSun from '@/components/menu/menuList'
+    import {isFull, Message} from '@/util';
+    import {menuList} from "../config/menu";
 export default {
     data() {
         return {
-            isCollapse: false,
             fullscreen: false,
-            themeColor: '#409EFF'
+            menuList: menuList
         }
     },
+    components:{
+        MenuSun
+    },
     mounted() {
-
         window.addEventListener('resize', () => {
             if(!isFull()) {
                 this.fullscreen = !this.fullscreen;
@@ -96,18 +78,18 @@ export default {
     computed:{
         asideWidth() {
             return this.isCollapse ? '64px' : '200px'
+        },
+        isCollapse() {
+            return this.$store.state.common.isCollapse
         }
     },
     methods:{
         handleToggle() {
-            this.isCollapse = !this.isCollapse
+            this.$store.commit('setCollapse', !this.isCollapse)
         },
         handleCommand(value) {
             window.sessionStorage.setItem('LANGUAGE', value);
             location.reload()
-        },
-        handleChangeColor(color) {
-          console.log(color)
         },
         handleFullScreen() {
             let element = document.documentElement;
@@ -134,6 +116,9 @@ export default {
                 }
             }
             this.fullscreen = !this.fullscreen;
+        },
+        handleMessage() {
+            Message();
         }
     }
 }

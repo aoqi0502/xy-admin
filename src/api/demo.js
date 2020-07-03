@@ -1,9 +1,12 @@
-import instance from './index';
+import axios from './index';
 
-export const testLogin = (form) => {
-    return instance({
+export const testLogin = (email, password) => {
+    return axios({
         url: '/api/login',
         method: 'get',
-        params: form
+        params: {
+          email,
+          password
+        }
     })
 }

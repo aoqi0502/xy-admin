@@ -1,7 +1,7 @@
 <template>
     <div class="xy-container">
         <el-row :gutter="10">
-            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple">
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content home-col">
                 <el-card class="box-card" shadow="hover">
                     <div slot="header" class="clearfix">
                         <span>词云图</span>
@@ -9,7 +9,7 @@
                     <div id="wordCloudEcharts" style="width:100%;height: 260px"></div>
                 </el-card>
             </div></el-col>
-            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple">
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content home-col">
                 <el-card class="box-card" shadow="hover">
                     <div slot="header" class="clearfix">
                         <span>漏斗图</span>
@@ -17,7 +17,7 @@
                     <div id="funnelEcharts" style="width:100%;height: 260px"></div>
                 </el-card>
             </div></el-col>
-            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple">
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content home-col">
                 <el-card class="box-card" shadow="hover">
                     <div slot="header" class="clearfix">
                         <span>饼图</span>
@@ -25,7 +25,7 @@
                     <div id="pieEcharts" style="width:100%;height: 260px"></div>
                 </el-card>
             </div></el-col>
-            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content bg-purple"></div></el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="grid-content home-col"></div></el-col>
         </el-row>
     </div>
 </template>
@@ -332,19 +332,9 @@ export default {
 }
 </script>
 
-<style>
-    .xy-container{
-        background-color: white;
-        height: 100%;
-        padding: 10px;
-        overflow: auto;
-        box-sizing: border-box;
-    }
+<style scoped>
     .clearfix{
         text-align: left;
-    }
-    .el-card__header{
-        padding: 0 20px !important;
     }
     .grid-content{
         margin-bottom: 20px;

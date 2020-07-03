@@ -18,8 +18,4 @@ const i18n = new VueI18n({
 })
 
 ElementLocale.i18n((key, value) => i18n.t(key, value))
-
-console.log(i18n)
-
-
 export default i18n;

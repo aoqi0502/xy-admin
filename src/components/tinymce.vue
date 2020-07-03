@@ -1,6 +1,5 @@
 <template>
     <div>
-        富文本编辑器
         <div class="tinymce-box">
             <editor v-model="myValue"
                     :init="init"

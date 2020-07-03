@@ -1,6 +1,5 @@
 <template>
-    <div>
-        111
+    <div class="xy-container">
         <tinymce
                 ref="editor"
                 v-model="msg"
@@ -11,7 +10,7 @@
 </template>
 
 <script>
-    import tinymce from "../components/tinymce";
+    import tinymce from "@/components/tinymce";
     export default {
         name: "editor",
         components:{
