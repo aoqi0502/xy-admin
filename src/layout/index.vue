@@ -31,7 +31,7 @@
                                         <el-dropdown-item command="en">英文</el-dropdown-item>
                                     </el-dropdown-menu>
                                 </el-dropdown>
-                                <el-dropdown style="vertical-align: middle">
+                                <el-dropdown style="vertical-align: middle" @command="handLeUser">
                                   <div class="el-dropdown-link" style="cursor: pointer;height: 60px;display: flex;align-items: center">
                                     <img class="pic" src="http://p0.ifengimg.com/pmop/2017/0718/4B65DFB30700B94B6FCFA6EC792F7C3D7F453CEE_size1653_w365_h365.gif" alt="">
                                      <i class="el-icon-caret-bottom el-icon--right"></i>
@@ -119,6 +119,9 @@ export default {
         },
         handleMessage() {
             Message();
+        },
+        handLeUser() {
+            this.$router.push('/')
         }
     }
 }
