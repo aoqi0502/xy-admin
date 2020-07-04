@@ -41,7 +41,7 @@ export default {
 
 <style scoped lang="scss">
     .container{
-        background:url('../assets/backGround.jpg');
+        background:url('../assets/bg.jpg');
         background-size:100% 100%;  
         height: 100%;
         display: flex;
