@@ -6,7 +6,8 @@
 
 ## 项目预览
     因为采用的是netlify自动部署，所以国内访问起来会很慢
-
+![](https://github.com/aoqi0502/xy-admin/raw/master/src/assets/login.png)
+![](https://github.com/aoqi0502/xy-admin/raw/master/src/assets/home.png)
 [xy-admin](https://xy-admin.netlify.app/)
 ## Project setup
 ```
