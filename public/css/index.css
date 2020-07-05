@@ -23,6 +23,7 @@
     line-height: 150px;
     font-size: 18px;
     animation: box 2s linear infinite ;
+    margin-bottom: 20px;
 }
 
 .loading::after, .loading::before{
