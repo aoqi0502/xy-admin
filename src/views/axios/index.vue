@@ -6,7 +6,7 @@
                 <el-input v-model="loginForm.email" type="email"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input v-model="loginForm.password" type="password"></el-input>
+                <el-input v-model="loginForm.password" type="password" auto-complete="new-password"></el-input>
             </el-form-item>
         </el-form>
         <div style="text-align: center">

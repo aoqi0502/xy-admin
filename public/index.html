@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1909844_4vuuzkvrxfs.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1909844_4mgwpa6h8ey.css">
+    <link href="./css/index.css" rel="stylesheet">
   </head>
 <style>
   body, html{
@@ -21,7 +22,16 @@
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <div class="loading-box">
+        <div  class="loading">
+          <span>
+              loading...
+          </span>
+        </div>
+        <p>XY-Admin</p>
+      </div>
+    </div>
     <script src="./js/vue/index.js"></script>
     <!-- built files will be auto injected -->
   </body>
