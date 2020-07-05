@@ -1,6 +1,13 @@
 
 # xy-admin
 
+## xy-admin是什么?
+  一个基于vue2.x,vue cli4.0的一款后台管理项目。
+
+## 项目预览
+    因为采用的是netlify自动部署，所以国内访问起来会很慢
+
+[xy-admin](https://xy-admin.netlify.app/)
 ## Project setup
 ```
 yarn install
@@ -21,6 +28,3 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
->>>>>>> 4a50827... 初次提交
