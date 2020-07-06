@@ -1,0 +1,27 @@
+.home-col{
+  .el-card__header{
+    padding: 0 20px !important;
+  }
+}
+
+
+.el-menu-item.is-active {
+  background-color: #409eff !important;
+}
+.el-submenu__title:hover{
+  background-color: #409eff !important;
+  color: white !important;
+  i{
+      color: white !important;
+  }
+}
+.el-menu-item:hover{
+  background-color: #409eff !important;
+  color: white !important;
+  i{
+      color: white !important;
+  }
+}
+.el-menu{
+border-right: none !important;
+}
