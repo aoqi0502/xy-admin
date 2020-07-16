@@ -15,18 +15,19 @@ module.exports={
     assetsDir:'static',
     publicPath:'./',
     devServer: {
-        hot: true
-        // host: 'localhost',
-        // port: 8080
-        // proxy:{
-        //     '/api': {
-        //         target: 'http://localhost:3000',
-        //         ws: true,
-        //         pathRewrite: {
-        //             '^/api': ''
-        //         }
-        //     }
-        // }
+        hot: true,
+        host: 'localhost',
+        port: 8080,
+        proxy:{
+            '/api': {
+                target: 'http://localhost:3000',
+                ws: true,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        }
     },
     configureWebpack: {
         resolve: {
