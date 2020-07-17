@@ -10,6 +10,6 @@ const store = new Vuex.Store({
         common
     },
     getters,
-    plugins:[createPersistedState()]
+    plugins:[createPersistedState({ storage: window.sessionStorage })]
 })
 export default store
