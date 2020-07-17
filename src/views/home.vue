@@ -1,24 +1,27 @@
 <template>
     <div style="height:3000px">
         <el-row :gutter="10">
-            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">
-                <card :title="$t('card.visit')" :count="500" icon="iconfont icon-fangwentongji" color="#73DDFF"/>
+            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4" v-for="(item, index) in cardList" :key="index">
+                <card :title="$t('card.' + item.type)" :count="item.count" :icon="item.icon" :color="item.color"/>
             </el-col>
-            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">
-                <card :title="$t('card.preview')" :count="30" icon="iconfont icon-jurassic_openeyes" color="#73ACFF"/>
-            </el-col>
-            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">
-                <card :title="$t('card.star')" :count="10" icon="iconfont icon-star" color="#FDD56A"/>
-            </el-col>
-            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">
-                <card :title="$t('card.download')" :count="242" icon="iconfont icon-xiazai1" color="#FDB36A"/>
-            </el-col>
-            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">
-                <card :title="$t('card.issuse')" :count="8" icon="iconfont icon-wenti" color="#FD866A"/>
-            </el-col>
-            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">
-                <card :title="$t('card.warning')" :count="0" icon="iconfont icon-jinggao1" color="#9E87FF"/>
-            </el-col>
+<!--            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">-->
+<!--                <card :title="$t('card.visit')" :count="500" icon="iconfont icon-fangwentongji" color="#73DDFF"/>-->
+<!--            </el-col>-->
+<!--            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">-->
+<!--                <card :title="$t('card.preview')" :count="30" icon="iconfont icon-jurassic_openeyes" color="#73ACFF"/>-->
+<!--            </el-col>-->
+<!--            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">-->
+<!--                <card :title="$t('card.star')" :count="10" icon="iconfont icon-star" color="#FDD56A"/>-->
+<!--            </el-col>-->
+<!--            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">-->
+<!--                <card :title="$t('card.download')" :count="242" icon="iconfont icon-xiazai1" color="#FDB36A"/>-->
+<!--            </el-col>-->
+<!--            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">-->
+<!--                <card :title="$t('card.issuse')" :count="8" icon="iconfont icon-wenti" color="#FD866A"/>-->
+<!--            </el-col>-->
+<!--            <el-col :xs="24" :sm="8" :md="6" :lg="6" :xl="4">-->
+<!--                <card :title="$t('card.warning')" :count="0" icon="iconfont icon-jinggao1" color="#9E87FF"/>-->
+<!--            </el-col>-->
         </el-row>
         <el-row :gutter="10">
             <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="6"><div class="home-col">
@@ -59,10 +62,12 @@
 
 <script>
 require('echarts-wordcloud');
-import card from '@/components/card'
+import card from '@/components/card';
+import {getDashboard} from '@/api/home'
 export default {
     data() {
         return {
+            cardList: [],
             wordCloudOption: {
                 backgroundColor: '#fff',
                 tooltip: {
@@ -343,6 +348,7 @@ export default {
     },
     mounted() {
         this.init();
+        this.getCards();
         window.addEventListener('resize', () => {
             this.wordCloudEcharts.resize();
             this.funnelEcharts.resize();
@@ -351,6 +357,11 @@ export default {
         })
     },
     methods:{
+        getCards() {
+            getDashboard().then(res => {
+                this.cardList = res.result;
+            })
+        },
         init() {
             this.wordCloudEcharts = this.$echarts.init(document.getElementById('wordCloudEcharts'));
             this.wordCloudEcharts.setOption(this.wordCloudOption);

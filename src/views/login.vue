@@ -4,12 +4,12 @@
             <h1>XY-ADMIN</h1>
             <form action="" @submit.prevent="login">
                 <div class="input-item">
-                    <input type="text" required="11111" autofocus ref="userNameIput" :value="loginForm.name">
-                    <label for="">{{$t('login.name')}}</label>
+                    <input type="text" required="" autofocus ref="userNameIput" v-model="loginForm.name">
+                    <label>{{$t('login.name')}}</label>
                 </div>
                 <div class="input-item">
-                    <input type="password" required="" ref="passwordIput" :value="loginForm.password">
-                    <label for="">{{$t('login.password')}}</label>
+                    <input type="password" required="" ref="passwordIput" v-model="loginForm.password">
+                    <label>{{$t('login.password')}}</label>
                 </div>
                 <input type="submit" :value="$t('login.login')"/>
             </form>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import {login} from '@/api/login'
 export default {
     data() {
         return {
@@ -29,7 +30,13 @@ export default {
     },
     methods:{
         login() {
-            this.$router.push('/home')
+            login(this.loginForm.name, this.loginForm.password).then(res => {
+                console.log(res, 'xx')
+                if(res.isSuc) {
+                    this.$store.commit('setToken', res.result)
+                    this.$router.push('/home')
+                }
+            })
         }
     }
 }
@@ -38,7 +45,7 @@ export default {
 <style scoped lang="scss">
     .container{
         background:url('../assets/bg.jpg');
-        background-size:100% 100%;  
+        background-size:100% 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -108,5 +115,5 @@ export default {
             cursor: pointer;
         }
     }
-    
+
 </style>

@@ -1,7 +1,8 @@
 export default {
     state: {
         isCollapse: false,
-        LANGUAGE: 'zh'
+        LANGUAGE: 'zh',
+        TOKEN: ''
     },
     mutations:{
         setCollapse (state, isCollapse) {
@@ -9,6 +10,9 @@ export default {
         },
         setLanguage (state, language) {
             state.LANGUAGE = language
-        }
+        },
+        setToken (state, token) {
+            state.TOKEN = token
+        },
     }
 }
