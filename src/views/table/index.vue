@@ -1,5 +1,6 @@
 <template>
     <div class="xy-container">
+        <el-button type="primary" size="small" @click="$refs.addDialog.dialogVisible = true">新增</el-button>
         <el-button type="danger" size="small" :disabled="selection.length == 0">删除</el-button>
         <el-table
                 ref="multipleTable"
@@ -14,10 +15,10 @@
             <el-table-column
                     width="160"
                     label="日期">
-                <template slot-scope="scope">{{ scope.row.date }}</template>
+                <template slot-scope="scope">{{ scope.row.creatDate}}</template>
             </el-table-column>
             <el-table-column
-                    prop="name"
+                    prop="userName"
                     width="160"
                     label="姓名">
             </el-table-column>
@@ -46,66 +47,65 @@
             <el-pagination
                     background
                     :hide-on-single-page="true"
-                    layout="prev, pager, next"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage"
+                    :page-sizes="[10, 20, 30, 50]"
+                    :page-size="pageSize"
                     :total="100">
             </el-pagination>
         </div>
+        <add-dialog ref="addDialog" @refresh="init()"></add-dialog>
     </div>
 </template>
 
 <script>
+    import AddDialog from './dialog'
+    import {getUserList, deleteUser} from '@/api/table'
     export default {
         name: "index",
         data() {
             return {
                 value1:'',
                 selection:[],
-                tableData:[{
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-08',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-06',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-07',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }]
+                tableData:[],
+                pageSize:10,
+                currentPage:1
             }
         },
+        components:{
+            AddDialog
+        },
+        mounted() {
+            this.init()
+        },
         methods:{
+            init() {
+                getUserList().then(res => {
+                    this.tableData = res.result;
+                })
+            },
             handleSelectionChange(selection) {
                 this.selection = selection
                 console.log(selection)
             },
+            handleSizeChange(size) {
+                this.pageSize = size;
+                this.init()
+            },
+            handleCurrentChange(page) {
+                this.currentPage = page;
+                this.init()
+            },
             handleDelete(item) {
-                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
+                deleteUser(item.id).then(res => {
+                    if(res.isSuc) {
+                        this.$message({
+                            type: 'success',
+                            message: res.msg
+                        })
+                        this.init();
+                    }
                 })
             }
         }

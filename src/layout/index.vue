@@ -56,7 +56,7 @@
 
 <script>
     import MenuSun from '@/components/menu/menuList'
-    import {isFull, Message} from '@/util';
+    import {isFull, Notification} from '@/util';
     import {menuRouter} from "@/router";
 export default {
     data() {
@@ -128,7 +128,7 @@ export default {
             this.fullscreen = !this.fullscreen;
         },
         handleMessage() {
-            Message();
+            Notification();
         },
         handLeUser(type) {
             if(type == 'logout') {
@@ -186,7 +186,7 @@ export default {
     .notCollapse {
         width: 200px;
     }
-    
+
 
 @media screen and (max-width: 470px) {
     .hidden-xs{

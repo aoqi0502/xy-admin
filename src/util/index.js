@@ -1,4 +1,5 @@
 let img = require('@/assets/logo.png')
+import {Message} from "element-ui"
 /**
 * 判断是否处于全屏状态
 * */
@@ -20,7 +21,7 @@ export const isFull = function () {
  * chrome Notification方法，消息通知，可允许最小化浏览器时进行消息通知
  * 但仅支持 localhost以及https服务
  * */
-export const Message = function () {
+export const Notification = function () {
     if (window.Notification) {
         if (window.Notification.permission == "granted") {
             new Notification('XY-Admin', {
@@ -44,4 +45,25 @@ export const Message = function () {
     } else {
         alert('暂不支持Notification')
     }
+}
+
+/**
+ * element Message组件，用来接口增删改的消息提示
+ * */
+
+export const resultAlert = function (result) {
+    let type = ''
+    switch (result.isSuc) {
+        case true:
+            type = 'success';
+            break
+        case false:
+            type = 'warning';
+            break
+    }
+    Message({
+        message: result.msg,
+        type,
+        duration:1000
+    })
 }
