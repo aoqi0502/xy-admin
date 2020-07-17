@@ -16,7 +16,6 @@
 </template>
 
 <script>
-    import {testLogin} from '@/api/demo'
     export default {
         name: "ajax",
         data() {
@@ -38,26 +37,7 @@
         },
         methods:{
             submit() {
-
-                this.$refs.loginForm.validate((valid)=> {
-                    if(valid) {
-                        testLogin(this.loginForm.email, this.loginForm.password).then(res => {
-                            if(res.data.code === 200) {
-                                this.$message({
-                                    message:'登录成功',
-                                    type:'success'
-                                })
-                            } else {
-                                this.$message({
-                                    message: res.data.msg,
-                                    type:'error'
-                                })
-                            }
-                        })
-                    } else {
-                        return false
-                    }
-                })
+                alert('暂无axios接入')
             }
         }
     }

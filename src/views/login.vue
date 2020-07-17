@@ -18,7 +18,6 @@
 </template>
 
 <script>
-    import {login} from '@/api/login'
 export default {
     data() {
         return {
@@ -30,13 +29,7 @@ export default {
     },
     methods:{
         login() {
-            login(this.loginForm.name, this.loginForm.password).then(res => {
-                console.log(res, 'xx')
-                if(res.isSuc) {
-                    this.$store.commit('setToken', res.result)
-                    this.$router.push('/home')
-                }
-            })
+            this.$router.push('/home')
         }
     }
 }
