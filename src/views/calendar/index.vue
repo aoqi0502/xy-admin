@@ -45,7 +45,6 @@
         },
         watch:{
             time(value) {
-                console.log(value)
                 this.month = value.getMonth() + 1;
                 this.year = value.getFullYear() + 1
             }

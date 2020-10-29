@@ -24,7 +24,6 @@ axios.interceptors.request.use(
 // axios 拦截器
 axios.interceptors.response.use(
     response => {
-        console.log(response)
         if (response.status === 200) {
             let code = response.data.code
             switch (code) {
@@ -50,16 +49,37 @@ axios.interceptors.response.use(
                 case 404:
                     return Promise.reject(response)
                 case 500:
+                    // 正常业务报错
+                    Message({
+                        showClose: true,
+                        message: '服务器异常',
+                        type: 'error',
+                        duration: 1500
+                    })
                     return Promise.reject(response)
             }
             return Promise.reject(response);
         } else {
+            console.log('--------')
+            Message({
+                showClose: true,
+                message: '服务器异常',
+                type: 'error',
+                duration: 1500
+            })
             return Promise.reject(response);
         }
     },
 
     // 服务器状态码不是200的情况
     error => {
+        console.log('-*----')
+        Message({
+            showClose: true,
+            message: '服务器异常',
+            type: 'error',
+            duration: 1500
+        })
         if (error.response.status) {
             return Promise.reject(error.response);
         }

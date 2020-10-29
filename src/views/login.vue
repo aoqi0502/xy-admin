@@ -31,7 +31,6 @@ export default {
     methods:{
         login() {
             login(this.loginForm.name, this.loginForm.password).then(res => {
-                console.log(res, 'xx')
                 if(res.isSuc) {
                     this.$store.commit('setToken', res.result)
                     this.$router.push('/home')

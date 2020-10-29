@@ -68,7 +68,6 @@
             }
         },
         mounted () {
-            console.log(this.language, 'xx')
             tinymce.init({})
         },
         computed:{

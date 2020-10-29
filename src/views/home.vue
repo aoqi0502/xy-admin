@@ -55,7 +55,25 @@ export default {
             pieData:[],
             lineData:[],
             lineTitleData:[],
-            wordCloudOption: {
+            funnelEcharts:''
+        }
+    },
+    components:{
+        card
+    },
+    mounted() {
+        this.init();
+        window.addEventListener('resize', () => {
+            this.wordCloudEcharts.resize();
+            this.funnelEcharts.resize();
+            this.pieEcharts.resize();
+            this.cateEcharts.resize();
+        })
+    },
+    methods:{
+        initEcharts() {
+            this.wordCloudEcharts = this.$echarts.init(document.getElementById('wordCloudEcharts'));
+            this.wordCloudEcharts.setOption({
                 backgroundColor: '#fff',
                 tooltip: {
                     show: true
@@ -88,8 +106,10 @@ export default {
                     },
                     data: this.wordCloudData//name和value建议用小写，大写有时会出现兼容问题
                 }]
-            },
-            funnelOption: {
+            });
+
+            this.funnelEcharts = this.$echarts.init(document.getElementById('funnelEcharts'));
+            this.funnelEcharts.setOption({
                 backgroundColor: "#ffffff",
                 color: ["#37A2DA", "#32C5E9", "#67E0E3", "#9FE6B8", "#FFDB5C",],
                 tooltip: {
@@ -141,8 +161,10 @@ export default {
                         data: this.funnelData
                     }
                 ]
-            },
-            pieOption: {
+            });
+
+            this.pieEcharts = this.$echarts.init(document.getElementById('pieEcharts'));
+            this.pieEcharts.setOption({
                 backgroundColor: '#fff',
                 tooltip: {
                     trigger: 'item',
@@ -173,8 +195,10 @@ export default {
                     },
                     data: this.pieData
                 }]
-            },
-            cateOption:  {
+            });
+
+            this.cateEcharts = this.$echarts.init(document.getElementById('cateEcharts'));
+            this.cateEcharts.setOption({
                 tooltip: {
                     trigger: 'axis'
                 },
@@ -196,36 +220,7 @@ export default {
                     type: 'value'
                 },
                 series: this.lineData
-            },
-            funnelEcharts:''
-        }
-    },
-    components:{
-        card
-    },
-    mounted() {
-        this.init();
-        window.addEventListener('resize', () => {
-            this.wordCloudEcharts.resize();
-            this.funnelEcharts.resize();
-            this.pieEcharts.resize();
-            this.cateEcharts.resize();
-        })
-    },
-    methods:{
-        initEcharts() {
-            // this.wordCloudEcharts = this.$echarts.init(document.getElementById('wordCloudEcharts'));
-            // this.wordCloudEcharts.setOption(this.wordCloudOption);
-
-            this.funnelEcharts = this.$echarts.init(document.getElementById('funnelEcharts'));
-            console.log(this.funnelOption, '--------')
-            this.funnelEcharts.setOption(this.funnelOption);
-            //
-            // this.pieEcharts = this.$echarts.init(document.getElementById('pieEcharts'));
-            // this.pieEcharts.setOption(this.pieOption);
-            //
-            // this.cateEcharts = this.$echarts.init(document.getElementById('cateEcharts'));
-            // this.cateEcharts.setOption(this.cateOption);
+            });
         },
         init() {
             getDashboard().then(res => {
@@ -242,9 +237,7 @@ export default {
                         data:item.value.split(',')
                     })
                 })
-                this.$nextTick(() => {
-                    this.initEcharts()
-                })
+                this.initEcharts()
             })
         }
     }

@@ -1,18 +1,22 @@
 import axios from './index';
 
-export const getUserList = () => {
+export const getUserList = (currentPage, pageSize) => {
     return axios({
         url: '/api/userlist',
-        method: 'get'
+        method: 'get',
+        params:{
+            currentPage,
+            pageSize
+        }
     })
 }
 
-export const deleteUser = (id) => {
+export const deleteUser = (ids) => {
     return axios({
         url: '/api/userList/delete',
         method: 'post',
         data: {
-            id
+            ids
         }
     })
 }

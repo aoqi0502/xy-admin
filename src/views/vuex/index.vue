@@ -23,7 +23,6 @@
         methods:{
             handleChange(value) {
                 this.$store.commit('setCount', value)
-                console.log(this.$store.state.demo.count)
             }
         }
     }

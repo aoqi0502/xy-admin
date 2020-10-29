@@ -1,7 +1,7 @@
 <template>
     <div class="xy-container">
         <el-button type="primary" size="small" @click="$refs.addDialog.dialogVisible = true">新增</el-button>
-        <el-button type="danger" size="small" :disabled="selection.length == 0">删除</el-button>
+        <el-button type="danger" size="small" :disabled="selection.length == 0" @click="handleClick">删除</el-button>
         <el-table
                 ref="multipleTable"
                 :data="tableData"
@@ -52,7 +52,7 @@
                     :current-page.sync="currentPage"
                     :page-sizes="[10, 20, 30, 50]"
                     :page-size="pageSize"
-                    :total="100">
+                    :total="total">
             </el-pagination>
         </div>
         <add-dialog ref="addDialog" @refresh="init()"></add-dialog>
@@ -69,8 +69,9 @@
                 value1:'',
                 selection:[],
                 tableData:[],
-                pageSize:10,
-                currentPage:1
+                pageSize:3,
+                currentPage:1,
+                total: 0
             }
         },
         components:{
@@ -81,13 +82,29 @@
         },
         methods:{
             init() {
-                getUserList().then(res => {
-                    this.tableData = res.result;
+                getUserList(this.currentPage, this.pageSize).then(res => {
+                    this.tableData = res.result.tableList;
+                    this.total = res.result.total
                 })
             },
             handleSelectionChange(selection) {
                 this.selection = selection
-                console.log(selection)
+            },
+            handleClick() {
+              // 批量删除
+                var ids = []
+                this.selection.forEach(value =>{
+                    ids.push(value.id)
+                })
+                deleteUser(ids.toString()).then(res => {
+                    if(res.isSuc) {
+                        this.$message({
+                            type: 'success',
+                            message: res.msg
+                        })
+                        this.init();
+                    }
+                })
             },
             handleSizeChange(size) {
                 this.pageSize = size;

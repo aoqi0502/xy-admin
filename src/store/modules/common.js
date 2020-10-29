@@ -2,7 +2,8 @@ export default {
     state: {
         isCollapse: false,
         LANGUAGE: 'zh',
-        TOKEN: ''
+        TOKEN: '',
+        fileMd5: ''
     },
     mutations:{
         setCollapse (state, isCollapse) {
@@ -14,5 +15,8 @@ export default {
         setToken (state, token) {
             state.TOKEN = token
         },
+        setMd5 (state, md5) {
+            state.fileMd5 = md5
+        }
     }
 }

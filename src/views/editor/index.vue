@@ -24,7 +24,6 @@
         },
         methods:{
             onClick (e, editor) {
-                console.log('Element clicked')
                 console.log(e)
                 console.log(editor)
             },
